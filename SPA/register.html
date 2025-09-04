@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - HENDRE SPA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8a6d62;
+            --secondary-color: #c9a992;
+            --accent-color: #d8c1b2;
+            --dark-color: #5c4b42;
+            --light-color: #f8f5f1;
+            --text-color: #333;
+            --text-light: #5a5a5a;
+            --shadow: rgba(0,0,0,0.08);
+            --sidebar-width: 280px;
+        }
+
+        /* Global */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Menu Toggle Button */
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
+            background: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .menu-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: url('https://images.unsplash.com/photo-1618220179428-22790b461013?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80') center/cover no-repeat;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            transition: transform 0.4s ease;
+            z-index: 1000;
+            box-shadow: 2px 0 15px rgba(0,0,0,0.15);
+            transform: translateX(-100%);
+        }
+        .sidebar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(92, 75, 66, 0.85), rgba(138, 109, 98, 0.9));
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        
+        .sidebar-header {
+            padding: 30px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .sidebar-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        
+        .sidebar-logo span { 
+            color: var(--accent-color); 
+        }
+        
+        .sidebar-nav {
+            padding: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .sidebar-nav ul {
+            list-style: none;
+        }
+        
+        .sidebar-nav li {
+            margin-bottom: 8px;
+        }
+        
+        .sidebar-nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            transition: all 0.3s;
+            position: relative;
+            font-weight: 500;
+        }
+        
+        .sidebar-nav a:hover, 
+        .sidebar-nav a.active {
+            background-color: rgba(255,255,255,0.1);
+            padding-left: 40px;
+        }
+        
+        .sidebar-nav a:hover:before, 
+        .sidebar-nav a.active:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background-color: var(--accent-color);
+        }
+        
+        .sidebar-nav i {
+            margin-right: 15px;
+            width: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+        
+        .sidebar-footer {
+            padding: 25px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            z-index: 2;
+        }
+        
+        .sidebar-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-social a {
+            color: white;
+            font-size: 22px;
+            transition: all 0.3s;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .sidebar-social a:hover { 
+            background: var(--accent-color);
+            color: var(--dark-color);
+            transform: translateY(-3px);
+        }
+        
+        .sidebar-contact {
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        /* Main Content */
+        .main-content {
+            transition: margin-left 0.4s ease;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            color: var(--text-color);
+            padding: 20px 0;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark-color);
+            font-weight: bold;
+            overflow: hidden;
+            border: 3px solid var(--secondary-color);
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .auth-buttons { 
+            display: flex; 
+            gap: 12px; 
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--dark-color);
+            color: white;
+            border: 2px solid var(--dark-color);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            color: var(--dark-color);
+            border: 2px solid var(--dark-color);
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--dark-color);
+            border: 2px solid white;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Auth Container */
+        .auth-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
+        
+        .auth-form {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .auth-form h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        
+        /* Image Upload */
+        .image-upload-container {
+            border: 2px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .image-upload-container:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(138, 109, 98, 0.05);
+        }
+        
+        .image-upload-container i {
+            font-size: 40px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+        
+        .image-preview {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 3px solid var(--accent-color);
+            display: none;
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(138, 109, 98, 0.2);
+        }
+        
+        .auth-link {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--text-light);
+        }
+        
+        .auth-link a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .auth-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-logo span { 
+            color: var(--accent-color); 
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .footer-social a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        
+        .footer-social a:hover { 
+            color: var(--accent-color); 
+        }
+        
+        .footer-contact {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dark-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .footer-content {
+                flex-direction: column;
+                gap: 25px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .auth-form {
+                padding: 30px;
+            }
+            
+            .auth-form h2 {
+                font-size: 1.8rem;
+            }
+            
+            .auth-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .user-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .image-upload-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Menu Toggle Button -->
+    <div class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="home.html" class="sidebar-logo">HENDRE <span>SPA</span></a>
+            <p style="color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 5px;">Create your account</p>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="services.html"><i class="fas fa-spa"></i> Services</a></li>
+                <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+                <li><a href="booking.html"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="sidebar-social">
+                <a href="hendre_skin_SP"><i class="fab fa-facebook-f"></i></a>
+                <a href="hendre_skin_SPA"><i class="fab fa-instagram"></i></a>
+                <a href="264 812196558"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
+            <div class="sidebar-contact">
+                <p>windhoek west, church street no. 52</p>
+                <p>+26481 2196556</p>
+                <p>sipolapandu@gmail.com</p>
+            </div>
+            
+            <p>&copy; 2025 HENDRE SPA</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Header with User Profile -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <div class="user-profile">
+                        <div class="user-avatar">
+                            <img src="" id="profile-image" alt="Profile Image">
+                        </div>
+                        <div class="user-info">
+                            <div class="user-name" id="username-display">Guest</div>
+                            <div class="user-points">Loyalty Points: <span id="points-display">0</span></div>
+                        </div>
+                        
+                        <div class="auth-buttons" id="auth-buttons">
+                            <a href="login.html" class="btn btn-outline">Login</a>
+                            <a href="register.html" class="btn btn-primary">Register</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Register Form -->
+        <section class="auth-container">
+            <div class="auth-form">
+                <h2>Create an Account</h2>
+                
+                <div class="image-upload-container" id="image-upload-container">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Click to upload your profile picture</p>
+                    <span>or drag and drop</span>
+                    <input type="file" id="register-image" accept="image/*" style="display: none;">
+                </div>
+                
+                <div class="image-preview" id="image-preview">
+                    <img id="preview-img" src="" alt="Preview">
+                </div>
+                
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="register-name">Full Name</label>
+                        <input type="text" id="register-name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-phone">Phone Number</label>
+                        <input type="tel" id="register-phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Register</button>
+                </form>
+                
+                <div class="auth-link">
+                    Already have an account? <a href="login.html">Login</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <a href="home.html" class="footer-logo">HENDRE <span>SPA</span></a>
+                    
+                    <div class="footer-social">
+                        <a href="hendre_skin_SP"><i class="fab fa-facebook-f"></i></a>
+                        <a href="hendre_skin_SPA"><i class="fab fa-instagram"></i></a>
+                        <a href="264 812196558"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-contact">
+                    <p>windhoek west, church street no. 52</p>
+                    <p>+264 81 2196558</p>
+                    <p>sipolapandu@gmail.com</p>
+                </div>
+                
+                <p>&copy; 2025 HENDRE SKIN AND BODY CARE SPA. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Simple authentication check
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = localStorage.getItem('currentUser');
+            if (userData) {
+                const user = JSON.parse(userData);
+                document.getElementById('username-display').textContent = user.name;
+                document.getElementById('points-display').textContent = user.points || 0;
+                
+                if (user.image) {
+                    document.getElementById('profile-image').src = user.image;
+                } else {
+                    document.getElementById('profile-image').src = '';
+                    document.getElementById('profile-image').parentElement.textContent = user.name.charAt(0);
+                }
+                
+                document.getElementById('auth-buttons').innerHTML = `
+                    <a href="home.html" class="btn btn-outline" onclick="logout()">Logout</a>
+                `;
+            }
+            
+            // Toggle sidebar
+            document.getElementById('menuToggle').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.toggle('open');
+            });
+            
+            // Close sidebar when clicking outside
+            document.getElementById('mainContent').addEventListener('click', function() {
+                if (document.getElementById('sidebar').classList.contains('open')) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
+            });
+            
+            // Image upload preview
+            const imageInput = document.getElementById('register-image');
+            const imagePreview = document.getElementById('image-preview');
+            const previewImg = document.getElementById('preview-img');
+            const uploadContainer = document.getElementById('image-upload-container');
+            
+            uploadContainer.addEventListener('click', function() {
+                imageInput.click();
+            });
+            
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.addEventListener('load', function() {
+                        previewImg.setAttribute('src', this.result);
+                        imagePreview.style.display = 'block';
+                        uploadContainer.style.display = 'none';
+                    });
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Allow drag and drop
+            uploadContainer.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#8a6d62';
+                this.style.backgroundColor = 'rgba(138, 109, 98, 0.1)';
+            });
+            
+            uploadContainer.addEventListener('dragleave', function() {
+                this.style.borderColor = 'var(--accent-color)';
+                this.style.backgroundColor = 'transparent';
+            });
+            
+            uploadContainer.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'var(--accent-color)';
+                this.style.backgroundColor = 'transparent';
+                
+                const file = e.dataTransfer.files[0];
+                if (file && file.type.match('image.*')) {
+                    imageInput.files = e.dataTransfer.files;
+                    
+                    const reader = new FileReader();
+                    reader.addEventListener('load', function() {
+                        previewImg.setAttribute('src', this.result);
+                        imagePreview.style.display = 'block';
+                        uploadContainer.style.display = 'none';
+                    });
+                    
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            // Register form submission
+            document.getElementById('register-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const phone = document.getElementById('register-phone').value;
+                const password = document.getElementById('register-password').value;
+                const imageFile = document.getElementById('register-image').files[0];
+                
+                // Check if user already exists
+                const users = JSON.parse(localStorage.getItem('users') || '[]');
+                if (users.some(u => u.email === email)) {
+                    showToast('User with this email already exists', 3000);
+                    return;
+                }
+                
+                // Process image if selected
+                let imageData = '';
+                if (imageFile) {
+                    const reader = new FileReader();
+                    reader.onload = function() {
+                        imageData = reader.result;
+                        
+                        // Create new user with image data
+                        createUser(name, email, phone, password, imageData);
+                    };
+                    reader.readAsDataURL(imageFile);
+                } else {
+                    // Create new user without image
+                    createUser(name, email, phone, password, '');
+                }
+            });
+        });
+        
+        function createUser(name, email, phone, password, imageData) {
+            const newUser = {
+                name,
+                email,
+                phone,
+                password,
+                image: imageData,
+                points: 100 // Welcome points
+            };
+            
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Auto login
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+            
+            showToast('Registration successful! You have received 100 loyalty points.', 3000);
+            
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 3000);
+        }
+        
+        function logout() {
+            localStorage.removeItem('currentUser');
+            alert('Logged out successfully');
+            window.location.reload();
+        }
+        
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+        
+        // Check if user is already logged in
+        window.addEventListener('DOMContentLoaded', function() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                window.location.href = 'home.html';
+            }
+        });
+    </script>
+</body>
+</html>
