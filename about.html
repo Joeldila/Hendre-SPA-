@@ -222,6 +222,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            position: relative;
         }
         
         .user-avatar {
@@ -236,12 +237,34 @@
             font-weight: bold;
             overflow: hidden;
             border: 3px solid var(--secondary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
         }
         
         .user-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+        
+        .user-points {
+            font-size: 0.85rem;
+            color: var(--text-light);
         }
         
         .auth-buttons { 
@@ -257,6 +280,9 @@
             transition: all 0.3s;
             display: inline-block;
             text-align: center;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
         }
         
         .btn-primary {
@@ -277,9 +303,137 @@
             border: 2px solid white;
         }
         
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border: 2px solid var(--secondary-color);
+        }
+        
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Profile Dropdown */
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            padding: 15px;
+            min-width: 200px;
+            z-index: 100;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .profile-dropdown.open {
+            display: block;
+        }
+        
+        .profile-dropdown-item {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .profile-dropdown-item:hover {
+            background-color: var(--light-color);
+        }
+        
+        .profile-dropdown-item i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .modal-overlay.open {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--accent-color);
+        }
+        
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-color);
+            font-size: 1.8rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(138, 109, 98, 0.2);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
         }
 
         /* Hero Section */
@@ -534,6 +688,12 @@
             .values-grid {
                 grid-template-columns: 1fr;
             }
+            
+            .profile-dropdown {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
@@ -583,7 +743,7 @@
             <div class="container">
                 <div class="header-content">
                     <div class="user-profile">
-                        <div class="user-avatar">
+                        <div class="user-avatar" id="user-avatar">
                             <img src="" id="profile-image" alt="Profile Image">
                         </div>
                         <div class="user-info">
@@ -595,10 +755,54 @@
                             <a href="login.html" class="btn btn-outline">Login</a>
                             <a href="register.html" class="btn btn-primary">Register</a>
                         </div>
+                        
+                        <!-- Profile Dropdown (shown when logged in) -->
+                        <div class="profile-dropdown" id="profile-dropdown">
+                            <div class="profile-dropdown-item" onclick="openEditProfileModal()">
+                                <i class="fas fa-user-edit"></i>
+                                <span>Edit Profile</span>
+                            </div>
+                            <div class="profile-dropdown-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </header>
+        
+        <!-- Edit Profile Modal -->
+        <div class="modal-overlay" id="edit-profile-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 class="modal-title">Edit Profile</h2>
+                    <button class="modal-close" onclick="closeEditProfileModal()">&times;</button>
+                </div>
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label class="form-label" for="edit-name">Full Name</label>
+                        <input type="text" id="edit-name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="edit-email">Email</label>
+                        <input type="email" id="edit-email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="edit-phone">Phone</label>
+                        <input type="tel" id="edit-phone" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="edit-image">Profile Image URL</label>
+                        <input type="url" id="edit-image" class="form-input" placeholder="Paste image URL">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeEditProfileModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
         
         <!-- Hero Section -->
         <section class="hero">
@@ -620,7 +824,7 @@
                         <img src="her.jpg" alt="HENDRE SPA Owner">
                     </div>
                     
-                    <div class=" about-text">
+                    <div class="about-text">
                         <p>I started my massage business in 2019 and it was one of the best decisions I've ever made.</p>
                         
                         <p>The freedom to work on my own terms without external pressure has been incredibly fulfilling as a massage therapist.</p>
@@ -715,19 +919,24 @@
             const userData = localStorage.getItem('currentUser');
             if (userData) {
                 const user = JSON.parse(userData);
-                document.getElementById('username-display').textContent = user.name;
-                document.getElementById('points-display').textContent = user.points || 0;
-                
-                if (user.image) {
-                    document.getElementById('profile-image').src = user.image;
-                } else {
-                    document.getElementById('profile-image').src = '';
-                    document.getElementById('profile-image').parentElement.textContent = user.name.charAt(0);
-                }
+                updateUserProfile(user);
                 
                 document.getElementById('auth-buttons').innerHTML = `
-                    <a href="home.html" class="btn btn-outline" onclick="logout()">Logout</a>
+                    <a href="#" class="btn btn-outline" onclick="logout()">Logout</a>
                 `;
+                
+                // Add click event to avatar to show dropdown
+                document.getElementById('user-avatar').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.getElementById('profile-dropdown').classList.toggle('open');
+                });
+                
+                // Close dropdown when clicking elsewhere
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.profile-dropdown') && !e.target.closest('#user-avatar')) {
+                        document.getElementById('profile-dropdown').classList.remove('open');
+                    }
+                });
             }
             
             // Toggle sidebar
@@ -741,14 +950,83 @@
                     document.getElementById('sidebar').classList.remove('open');
                 }
             });
+            
+            // Handle profile form submission
+            document.getElementById('profile-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveProfileChanges();
+            });
         });
+        
+        function updateUserProfile(user) {
+            document.getElementById('username-display').textContent = user.name;
+            document.getElementById('points-display').textContent = user.points || 0;
+            
+            // Populate edit form
+            document.getElementById('edit-name').value = user.name;
+            document.getElementById('edit-email').value = user.email || '';
+            document.getElementById('edit-phone').value = user.phone || '';
+            document.getElementById('edit-image').value = user.image || '';
+            
+            if (user.image) {
+                document.getElementById('profile-image').src = user.image;
+                document.getElementById('profile-image').style.display = 'block';
+            } else {
+                document.getElementById('profile-image').style.display = 'none';
+                document.getElementById('user-avatar').textContent = user.name.charAt(0).toUpperCase();
+            }
+        }
+        
+        function openEditProfileModal() {
+            document.getElementById('edit-profile-modal').classList.add('open');
+            document.getElementById('profile-dropdown').classList.remove('open');
+        }
+        
+        function closeEditProfileModal() {
+            document.getElementById('edit-profile-modal').classList.remove('open');
+        }
+        
+        function saveProfileChanges() {
+            const userData = localStorage.getItem('currentUser');
+            if (userData) {
+                const user = JSON.parse(userData);
+                
+                // Update user data from form
+                user.name = document.getElementById('edit-name').value;
+                user.email = document.getElementById('edit-email').value;
+                user.phone = document.getElementById('edit-phone').value;
+                user.image = document.getElementById('edit-image').value;
+                
+                // Save updated user data
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Update profile display
+                updateUserProfile(user);
+                
+                // Close modal
+                closeEditProfileModal();
+                
+                alert('Profile updated successfully!');
+            }
+        }
         
         function logout() {
             localStorage.removeItem('currentUser');
             alert('Logged out successfully');
             window.location.reload();
         }
+        
+        // Demo login for testing (you can remove this in production)
+        function demoLogin() {
+            const demoUser = {
+                name: "Sarah Johnson",
+                email: "sarah@example.com",
+                points: 150,
+                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+            };
+            localStorage.setItem('currentUser', JSON.stringify(demoUser));
+            window.location.reload();
+        }
     </script>
 </body>
-
 </html>
