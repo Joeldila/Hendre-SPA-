@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Services - HENDRE SPA</title>
+    <title>Book Appointment - HENDRE SPA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
     <style>
         :root {
             --primary-color: #8a6d62;
@@ -222,6 +223,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
+            position: relative;
         }
         
         .user-avatar {
@@ -236,12 +238,34 @@
             font-weight: bold;
             overflow: hidden;
             border: 3px solid var(--secondary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-color);
         }
         
         .user-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        
+        .user-info {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--dark-color);
+        }
+        
+        .user-points {
+            font-size: 0.85rem;
+            color: var(--text-light);
         }
         
         .auth-buttons { 
@@ -257,6 +281,9 @@
             transition: all 0.3s;
             display: inline-block;
             text-align: center;
+            cursor: pointer;
+            border: none;
+            font-family: 'Poppins', sans-serif;
         }
         
         .btn-primary {
@@ -277,15 +304,145 @@
             border: 2px solid white;
         }
         
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border: 2px solid var(--secondary-color);
+        }
+        
         .btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
+        /* Profile Dropdown */
+        .profile-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            padding: 15px;
+            min-width: 200px;
+            z-index: 100;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .profile-dropdown.open {
+            display: block;
+        }
+        
+        .profile-dropdown-item {
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .profile-dropdown-item:hover {
+            background-color: var(--light-color);
+        }
+        
+        .profile-dropdown-item i {
+            color: var(--primary-color);
+            width: 20px;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            display: none;
+        }
+        
+        .modal-overlay.open {
+            display: flex;
+        }
+        
+        .modal {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--accent-color);
+        }
+        
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-color);
+            font-size: 1.8rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(138, 109, 98, 0.2);
+        }
+        
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
         /* Hero Section */
         .hero {
             background: linear-gradient(rgba(92, 75, 66, 0.7), rgba(138, 109, 98, 0.7)), 
-                url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;
+                url('https://images.unsplash.com/photo-1544168212-5c5a5aaf361d?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
             color: white;
             padding: 100px 0;
             text-align: center;
@@ -307,14 +464,15 @@
             font-weight: 300;
         }
 
-        /* Services Section */
-        .services-section {
+        /* Booking Section */
+        .booking-section {
             padding: 80px 0;
         }
         
         .section-title {
             text-align: center;
             margin-bottom: 60px;
+            padding: 0 20px;
         }
         
         .section-title h2 {
@@ -344,88 +502,148 @@
             margin: 25px auto 0;
         }
         
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+        .booking {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             margin-bottom: 60px;
         }
         
-        .service-category {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: transform 0.3s;
+        .booking-form-group {
+            margin-bottom: 25px;
         }
         
-        .service-category:hover {
-            transform: translateY(-10px);
-        }
-        
-        .category-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 25px;
-            text-align: center;
-        }
-        
-        .category-header h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: white;
-            margin: 0;
-        }
-        
-        .service-items {
-            padding: 25px;
-        }
-        
-        .service-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 0;
-            border-bottom: 1px dashed #eee;
-        }
-        
-        .service-item:last-child {
-            border-bottom: none;
-        }
-        
-        .service-name {
-            flex: 2;
+        .booking-form-group label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: 500;
+            color: var(--dark-color);
         }
         
-        .service-price {
-            flex: 1;
-            text-align: right;
-            color: var(--primary-color);
-            font-weight: 600;
+        .booking-form-group input,
+        .booking-form-group select,
+        .booking-form-group textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .booking-form-group input:focus,
+        .booking-form-group select:focus,
+        .booking-form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(138, 109, 98, 0.2);
+        }
+        
+        .booking-form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .day-time-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .sunday-note {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .sunday-note.show {
+            display: block;
+        }
+        
+        .choices {
+            margin-bottom: 0;
+        }
+        
+        .choices__inner {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            min-height: 54px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .choices__list--dropdown .choices__item--selectable {
+            padding-right: 10px;
+        }
+        
+        .choices__list--dropdown .choices__item {
+            padding: 10px 15px;
         }
 
-        /* Call to Action */
-        .cta {
-            background: linear-gradient(rgba(92, 75, 66, 0.9), rgba(92, 75, 66, 0.9)), 
-                url('https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-            color: white;
-            padding: 100px 0;
-            border-radius: 20px;
-            margin: 50px 0;
+        /* Confirmation Modal */
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .confirmation-modal.show {
+            display: flex;
+        }
+        
+        .confirmation-modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .confirmation-modal h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark-color);
+            margin-bottom: 20px;
             text-align: center;
         }
         
-        .cta h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            margin-bottom: 20px;
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
         }
         
-        .cta p { 
-            font-size: 1.2rem; 
-            max-width: 700px; 
-            margin: 0 auto 40px; 
-            font-weight: 300;
+        /* Toast */
+        #toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--dark-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        #toast.show {
+            opacity: 1;
         }
 
         /* Footer */
@@ -482,7 +700,7 @@
                 font-size: 2.8rem;
             }
             
-            .services-grid {
+            .day-time-container {
                 grid-template-columns: 1fr;
             }
             
@@ -514,6 +732,20 @@
                 flex-direction: column;
                 text-align: center;
             }
+            
+            .booking {
+                padding: 25px;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+            
+            .profile-dropdown {
+                right: auto;
+                left: 50%;
+                transform: translateX(-50%);
+            }
         }
     </style>
 </head>
@@ -533,9 +765,9 @@
             <ul>
                 <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
-                <li><a href="services.html" class="active"><i class="fas fa-spa"></i> Services</a></li>
+                <li><a href="services.html"><i class="fas fa-spa"></i> Services</a></li>
                 <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-                <li><a href="booking.html"><i class="fas fa-calendar-check"></i> Book Now</a></li>
+                <li><a href="booking.html" class="active"><i class="fas fa-calendar-check"></i> Book Now</a></li>
             </ul>
         </nav>
         
@@ -548,7 +780,7 @@
             
             <div class="sidebar-contact">
                 <p>windhoek west, church street no. 52</p>
-                <p>+26481 2196558</p>
+                <p>+264 81 219 6558</p>
                 <p>sipolapandu@gmail.com</p>
             </div>
             
@@ -563,7 +795,7 @@
             <div class="container">
                 <div class="header-content">
                     <div class="user-profile">
-                        <div class="user-avatar">
+                        <div class="user-avatar" id="user-avatar">
                             <img src="" id="profile-image" alt="Profile Image">
                         </div>
                         <div class="user-info">
@@ -575,100 +807,145 @@
                             <a href="login.html" class="btn btn-outline">Login</a>
                             <a href="register.html" class="btn btn-primary">Register</a>
                         </div>
+                        
+                        <!-- Profile Dropdown (shown when logged in) -->
+                        <div class="profile-dropdown" id="profile-dropdown">
+                            <div class="profile-dropdown-item" onclick="openEditProfileModal()">
+                                <i class="fas fa-user-edit"></i>
+                                <span>Edit Profile</span>
+                            </div>
+                            <div class="profile-dropdown-item" onclick="logout()">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <span>Logout</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </header>
         
+        <!-- Edit Profile Modal -->
+        <div class="modal-overlay" id="edit-profile-modal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 class="modal-title">Edit Profile</h2>
+                    <button class="modal-close" onclick="closeEditProfileModal()">&times;</button>
+                </div>
+                <form id="profile-form">
+                    <div class="form-group">
+                        <label class="form-label" for="edit-name">Full Name</label>
+                        <input type="text" id="edit-name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="edit-email">Email</label>
+                        <input type="email" id="edit-email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="edit-phone">Phone</label>
+                        <input type="tel" id="edit-phone" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="edit-image">Profile Image URL</label>
+                        <input type="url" id="edit-image" class="form-input" placeholder="Paste image URL">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline" onclick="closeEditProfileModal()">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
         <!-- Hero Section -->
         <section class="hero">
             <div class="container">
-                <h1>Our Premium Services</h1>
-                <p>Indulge in our luxurious treatments designed to rejuvenate your body and mind</p>
+                <h1>Book Your Appointment</h1>
+                <p>Fill out the form and we'll contact you via WhatsApp to confirm your booking</p>
             </div>
         </section>
         
-        <!-- Services Section -->
-        <section class="services-section">
+        <!-- Booking Section -->
+        <section class="booking-section">
             <div class="container">
                 <div class="section-title">
-                    <h2>Our Services</h2>
-                    <p>Premium treatments at affordable prices</p>
+                    <h2>Book an Appointment</h2>
+                    <p>Fill out the form and we'll contact you via WhatsApp to confirm your booking</p>
                 </div>
-
-                <div class="services-grid">
-                    <!-- Massage Therapies -->
-                    <div class="service-category">
-                        <div class="category-header">
-                            <h3>Massage Therapies</h3>
+                
+                <div class="booking">
+                    <form id="booking-form">
+                        <div class="booking-form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" required>
                         </div>
-                        <div class="service-items">
-                            <div class="service-item"><div class="service-name">Swedish Fullbody (60min)</div><div class="service-price">$470</div></div>
-                            <div class="service-item"><div class="service-name">Swedish Fullbody (90min)</div><div class="service-price">$650</div></div>
-                            <div class="service-item"><div class="service-name">Leg & Feet (30min)</div><div class="service-price">$250</div></div>
-                            <div class="service-item"><div class="service-name">Leg & Feet (45min)</div><div class="service-price">$350</div></div>
-                            <div class="service-item"><div class="service-name">Fullbody Hotstone (60min)</div><div class="service-price">$700</div></div>
-                            <div class="service-item"><div class="service-name">Deep Tissue (60min)</div><div class="service-price">$600</div></div>
-                            <div class="service-item"><div class="service-name">Deep Tissue (90min)</div><div class="service-price">$750</div></div>
-                            <div class="service-item"><div class="service-name">Aroma Therapy (60min)</div><div class="service-price">$550</div></div>
-                            <div class="service-item"><div class="service-name">Aroma Therapy (90min)</div><div class="service-price">$700</div></div>
+                        
+                        <div class="booking-form-group">
+                            <label for="phone">Phone Number (WhatsApp)</label>
+                            <input type="tel" id="phone" required>
                         </div>
-                    </div>
-
-                    <!-- Specialty Massages -->
-                    <div class="service-category">
-                        <div class="category-header">
-                            <h3>Specialty Massages</h3>
+                        
+                        <div class="booking-form-group">
+                            <label for="service">Select Service</label>
+                            <select id="service" required>
+                                <option value="">Choose a service</option>
+                                <optgroup label="Massage Therapies">
+                                    <option value="Swedish Fullbody (60min) - $470">Swedish Fullbody (60min) - $470</option>
+                                    <option value="Swedish Fullbody (90min) - $650">Swedish Fullbody (90min) - $650</option>
+                                    <option value="Leg & Feet (30min) - $250">Leg & Feet (30min) - $250</option>
+                                    <option value="Leg & Feet (45min) - $350">Leg & Feet (45min) - $350</option>
+                                    <option value="Fullbody Hotstone (60min) - $700">Fullbody Hotstone (60min) - $700</option>
+                                    <option value="Deep Tissue (60min) - $600">Deep Tissue (60min) - $600</option>
+                                    <option value="Deep Tissue (90min) - $750">Deep Tissue (90min) - $750</option>
+                                    <option value="Aroma Therapy (60min) - $550">Aroma Therapy (60min) - $550</option>
+                                    <option value="Aroma Therapy (90min) - $700">Aroma Therapy (90min) - $700</option>
+                                </optgroup>
+                                <optgroup label="Specialty Massages">
+                                    <option value="Back & Neck (45min) - $350">Back & Neck (45min) - $350</option>
+                                    <option value="Indian Massage (45min) - $400">Indian Massage (45min) - $400</option>
+                                    <option value="Indian Massage (60min) - $480">Indian Massage (60min) - $480</option>
+                                    <option value="Pregnant Massage (60min) - $500">Pregnant Massage (60min) - $500</option>
+                                    <option value="Pregnant Massage (90min) - $600">Pregnant Massage (90min) - $600</option>
+                                    <option value="Reflexology (30min) - $300">Reflexology (30min) - $300</option>
+                                    <option value="Sport Massage (60min) - $500">Sport Massage (60min) - $500</option>
+                                    <option value="4Hands Massage (60min) - $800">4Hands Massage (60min) - $800</option>
+                                    <option value="Thai Massage (60min) - $550">Thai Massage (60min) - $550</option>
+                                </optgroup>
+                                <optgroup label="Waxing & Beauty">
+                                    <option value="Full Leg Waxing - $400">Full Leg Waxing - $400</option>
+                                    <option value="Underarm Waxing - $100">Underarm Waxing - $100</option>
+                                    <option value="Hollywood Waxing - $380">Hollywood Waxing - $380</option>
+                                    <option value="Eyebrow Tint - $50">Eyebrow Tint - $50</option>
+                                    <option value="Fullbody Wax - $800">Fullbody Wax - $800</option>
+                                    <option value="Lips and chin Waxing - $100">Lips and chin Waxing - $100</option>
+                                </optgroup>
+                                <optgroup label="Couples Packages">
+                                    <option value="2x Full Body Massage - $800">2x Full Body Massage - $800</option>
+                                    <option value="2x Body Scrub - $600">2x Body Scrub - $600</option>
+                                    <option value="2x Back and Neck Massage - $600">2x Back and Neck Massage - $600</option>
+                                </optgroup>
+                            </select>
                         </div>
-                        <div class="service-items">
-                            <div class="service-item"><div class="service-name">Back & Neck (45min)</div><div class="service-price">$350</div></div>
-                            <div class="service-item"><div class="service-name">Indian Massage (45min)</div><div class="service-price">$400</div></div>
-                            <div class="service-item"><div class="service-name">Indian Massage (60min)</div><div class="service-price">$480</div></div>
-                            <div class="service-item"><div class="service-name">Pregnant Massage (60min)</div><div class="service-price">$500</div></div>
-                            <div class="service-item"><div class="service-name">Pregnant Massage (90min)</div><div class="service-price">$600</div></div>
-                            <div class="service-item"><div class="service-name">Reflexology (30min)</div><div class="service-price">$300</div></div>
-                            <div class="service-item"><div class="service-name">Sport Massage (60min)</div><div class="service-price">$500</div></div>
-                            <div class="service-item"><div class="service-name">4Hands Massage (60min)</div><div class="service-price">$800</div></div>
-                            <div class="service-item"><div class="service-name">Thai Massage (60min)</div><div class="service-price">$550</div></div>
+                        
+                        <div class="day-time-container">
+                            <div class="booking-form-group">
+                                <label for="date">Preferred Date</label>
+                                <input type="date" id="date" required>
+                            </div>
+                            
+                            <div class="booking-form-group">
+                                <label for="time">Preferred Time</label>
+                                <input type="time" id="time" min="09:00" max="19:00" step="1800" required>
+                            </div>
                         </div>
-                    </div>
-
-                    <!-- Waxing & Beauty -->
-                    <div class="service-category">
-                        <div class="category-header">
-                            <h3>Waxing & Beauty</h3>
+                        
+                        <div class="booking-form-group">
+                            <label for="message">Special Requests</label>
+                            <textarea id="message" rows="3"></textarea>
                         </div>
-                        <div class="service-items">
-                            <div class="service-item"><div class="service-name">Full Leg Waxing</div><div class="service-price">$400</div></div>
-                            <div class="service-item"><div class="service-name">Underarm Waxing</div><div class="service-price">$100</div></div>
-                            <div class="service-item"><div class="service-name">Hollywood Waxing</div><div class="service-price">$380</div></div>
-                            <div class="service-item"><div class="service-name">Eyebrow Tint</div><div class="service-price">$50</div></div>
-                            <div class="service-item"><div class="service-name">Fullbody Wax</div><div class="service-price">$800</div></div>
-                            <div class="service-item"><div class="service-name">Lips and chin Waxing</div><div class="service-price">$100</div></div>
-                        </div>
-                    </div>
-
-                    <!-- Couples Packages -->
-                    <div class="service-category">
-                        <div class="category-header">
-                            <h3>Couples Packages</h3>
-                        </div>
-                        <div class="service-items">
-                            <div class="service-item"><div class="service-name">2x Full Body Massage</div><div class="service-price">$800</div></div>
-                            <div class="service-item"><div class="service-name">2x Body Scrub</div><div class="service-price">$600</div></div>
-                            <div class="service-item"><div class="service-name">2x Back and Neck Massage</div><div class="service-price">$600</div></div>
-                        </div>
-                    </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit via WhatsApp</button>
+                    </form>
                 </div>
-            </div>
-        </section>
-        
-        <!-- Call to Action -->
-        <section class="cta">
-            <div class="container">
-                <h2>Ready to Book Your Treatment?</h2>
-                <p>Experience the healing power of our premium spa services</p>
-                <a href="booking.html" class="btn btn-light">Book Appointment</a>
             </div>
         </section>
         
@@ -681,13 +958,13 @@
                     <div class="footer-social">
                         <a href="hendre_skin_SP"><i class="fab fa-facebook-f"></i></a>
                         <a href="hendre_skin_SPA"><i class="fab fa-instagram"></i></a>
-                        <a href="264 812196558"><i class="fab fa-whatsapp"></i></a>
+                        <a href="264812196558"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
                 
                 <div class="footer-contact">
-                    <p>Windhoek West, Church Street no. 52</p>
-                    <p>+26481 2196558</p>
+                    <p>windhoek west, church street no. 52</p>
+                    <p>+264 81 2196558</p>
                     <p>sipolapandu@gmail.com</p>
                 </div>
                 
@@ -696,26 +973,59 @@
         </footer>
     </div>
 
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="confirmation-modal">
+        <div class="confirmation-modal-content">
+            <h2>Confirm Your Booking</h2>
+            <p id="confirm-details"></p>
+            <div class="modal-buttons">
+                <button id="confirm-btn" class="btn btn-primary">Confirm</button>
+                <button id="cancel-btn" class="btn btn-outline">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script>
+        // Initialize Choices.js for the service dropdown
+        const serviceSelect = new Choices('#service', {
+            searchEnabled: true,
+            itemSelectText: '',
+            shouldSort: false,
+            position: 'bottom'
+        });
+
         // Simple authentication check
         document.addEventListener('DOMContentLoaded', function() {
             const userData = localStorage.getItem('currentUser');
             if (userData) {
                 const user = JSON.parse(userData);
-                document.getElementById('username-display').textContent = user.name;
-                document.getElementById('points-display').textContent = user.points || 0;
-                
-                if (user.image) {
-                    document.getElementById('profile-image').src = user.image;
-                } else {
-                    document.getElementById('profile-image').src = '';
-                    document.getElementById('profile-image').parentElement.textContent = user.name.charAt(0);
-                }
+                updateUserProfile(user);
                 
                 document.getElementById('auth-buttons').innerHTML = `
-                    <a href="home.html" class="btn btn-outline" onclick="logout()">Logout</a>
+                    <a href="#" class="btn btn-outline" onclick="logout()">Logout</a>
                 `;
+                
+                // Add click event to avatar to show dropdown
+                document.getElementById('user-avatar').addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.getElementById('profile-dropdown').classList.toggle('open');
+                });
+                
+                // Close dropdown when clicking elsewhere
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.profile-dropdown') && !e.target.closest('#user-avatar')) {
+                        document.getElementById('profile-dropdown').classList.remove('open');
+                    }
+                });
             }
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('date').setAttribute('min', today);
             
             // Toggle sidebar
             document.getElementById('menuToggle').addEventListener('click', function() {
@@ -728,11 +1038,166 @@
                     document.getElementById('sidebar').classList.remove('open');
                 }
             });
+            
+            // Handle profile form submission
+            document.getElementById('profile-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveProfileChanges();
+            });
+            
+            // Form submission
+            document.getElementById('booking-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                if (!currentUser) {
+                    alert('Please login to book an appointment.');
+                    window.location.href = 'login.html';
+                    return;
+                }
+                
+                const name = document.getElementById('name').value;
+                const phone = document.getElementById('phone').value;
+                const service = document.getElementById('service').value;
+                const date = document.getElementById('date').value;
+                const time = document.getElementById('time').value;
+                const message = document.getElementById('message').value;
+                
+                // Show confirmation modal
+                document.getElementById('confirm-details').innerHTML = `
+                    <strong>Name:</strong> ${name}<br>
+                    <strong>Phone:</strong> ${phone}<br>
+                    <strong>Service:</strong> ${service}<br>
+                    <strong>Date:</strong> ${date}<br>
+                    <strong>Time:</strong> ${time}<br>
+                    <strong>Message:</strong> ${message || 'None'}
+                `;
+                
+                document.getElementById('confirmation-modal').classList.add('show');
+                
+                // Store booking data for confirmation
+                window.bookingData = {
+                    name, phone, service, date, time, message
+                };
+            });
+            
+            // Confirm booking
+            document.getElementById('confirm-btn').addEventListener('click', function() {
+                const { name, phone, service, date, time, message } = window.bookingData;
+                
+                // Create WhatsApp message
+                const whatsappMessage = `*New Booking Request*%0A%0A` +
+                    `👤 Name: ${name}%0A` +
+                    `📞 Phone: ${phone}%0A` +
+                    `💆 Service: ${service}%0A` +
+                    `📅 Date: ${date}%0A` +
+                    `⏰ Time: ${time}%0A` +
+                    `📝 Message: ${message || 'None'}%0A%0A` +
+                    `Please confirm this appointment.`;
+                
+                // Open WhatsApp
+                window.open(`https://wa.me/264812196558?text=${whatsappMessage}`, '_blank');
+                
+                // Update loyalty points
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                currentUser.points = (currentUser.points || 0) + 50;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Update points display
+                document.getElementById('points-display').textContent = currentUser.points;
+                
+                // Show success message
+                showToast('Booking submitted successfully! 50 loyalty points added.', 5000);
+                
+                // Close modal and reset form
+                document.getElementById('confirmation-modal').classList.remove('show');
+                document.getElementById('booking-form').reset();
+            });
+            
+            // Cancel booking
+            document.getElementById('cancel-btn').addEventListener('click', function() {
+                document.getElementById('confirmation-modal').classList.remove('show');
+            });
         });
+        
+        function updateUserProfile(user) {
+            document.getElementById('username-display').textContent = user.name;
+            document.getElementById('points-display').textContent = user.points || 0;
+            
+            // Populate edit form
+            document.getElementById('edit-name').value = user.name;
+            document.getElementById('edit-email').value = user.email || '';
+            document.getElementById('edit-phone').value = user.phone || '';
+            document.getElementById('edit-image').value = user.image || '';
+            
+            if (user.image) {
+                document.getElementById('profile-image').src = user.image;
+                document.getElementById('profile-image').style.display = 'block';
+            } else {
+                document.getElementById('profile-image').style.display = 'none';
+                document.getElementById('user-avatar').textContent = user.name.charAt(0).toUpperCase();
+            }
+        }
+        
+        function openEditProfileModal() {
+            document.getElementById('edit-profile-modal').classList.add('open');
+            document.getElementById('profile-dropdown').classList.remove('open');
+        }
+        
+        function closeEditProfileModal() {
+            document.getElementById('edit-profile-modal').classList.remove('open');
+        }
+        
+        function saveProfileChanges() {
+            const userData = localStorage.getItem('currentUser');
+            if (userData) {
+                const user = JSON.parse(userData);
+                
+                // Update user data from form
+                user.name = document.getElementById('edit-name').value;
+                user.email = document.getElementById('edit-email').value;
+                user.phone = document.getElementById('edit-phone').value;
+                user.image = document.getElementById('edit-image').value;
+                
+                // Save updated user data
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                // Update profile display
+                updateUserProfile(user);
+                
+                // Close modal
+                closeEditProfileModal();
+                
+                alert('Profile updated successfully!');
+            }
+        }
         
         function logout() {
             localStorage.removeItem('currentUser');
             alert('Logged out successfully');
+            window.location.reload();
+        }
+        
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+        
+        // Demo login for testing (you can remove this in production)
+        function demoLogin() {
+            const demoUser = {
+                name: "Sarah Johnson",
+                email: "sarah@example.com",
+                phone: "+264811234567",
+                points: 150,
+                image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80"
+            };
+            localStorage.setItem('currentUser', JSON.stringify(demoUser));
             window.location.reload();
         }
     </script>
