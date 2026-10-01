@@ -388,6 +388,41 @@
             border-bottom: 1px dashed #eee;
         }
         
+        .service-item {
+            gap: 15px;
+            color: var(--text-color);
+            text-decoration: none;
+            transition: background-color 0.2s ease;
+        }
+
+        .service-item .service-name {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .service-item:hover {
+            background-color: var(--light-color);
+        }
+
+        .service-item:focus-visible {
+            outline: 2px solid var(--dark-color);
+            outline-offset: 4px;
+        }
+
+        .service-price {
+            white-space: nowrap;
+        }
+
+        .sidebar-social a.whatsapp-link,
+        .footer-social a.whatsapp-link {
+            font-family: inherit;
+            font-size: 14px;
+            width: auto;
+            height: auto;
+            padding: 8px;
+            text-decoration: underline;
+        }
+
         .service-item:last-child {
             border-bottom: none;
         }
@@ -543,7 +578,7 @@
             <div class="sidebar-social">
                 <a href="hendre_skin_SP"><i class="fab fa-facebook-f"></i></a>
                 <a href="hendre_skin_SPA"><i class="fab fa-instagram"></i></a>
-                <a href="264 812196558"><i class="fab fa-whatsapp"></i></a>
+                <a class="whatsapp-link" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">WhatsApp</a>
             </div>
             
             <div class="sidebar-contact">
@@ -593,70 +628,73 @@
             <div class="container">
                 <div class="section-title">
                     <h2>Our Services</h2>
-                    <p>Premium treatments at affordable prices</p>
+                    <p>Premium treatments at affordable prices. Click a service to enquire on WhatsApp with its details.</p>
                 </div>
 
                 <div class="services-grid">
-                    <!-- Massage Therapies -->
                     <div class="service-category">
                         <div class="category-header">
                             <h3>Massage Therapies</h3>
                         </div>
                         <div class="service-items">
-                            <div class="service-item"><div class="service-name">Swedish Fullbody (60min)</div><div class="service-price">$470</div></div>
-                            <div class="service-item"><div class="service-name">Swedish Fullbody (90min)</div><div class="service-price">$650</div></div>
-                            <div class="service-item"><div class="service-name">Leg & Feet (30min)</div><div class="service-price">$250</div></div>
-                            <div class="service-item"><div class="service-name">Leg & Feet (45min)</div><div class="service-price">$350</div></div>
-                            <div class="service-item"><div class="service-name">Fullbody Hotstone (60min)</div><div class="service-price">$700</div></div>
-                            <div class="service-item"><div class="service-name">Deep Tissue (60min)</div><div class="service-price">$600</div></div>
-                            <div class="service-item"><div class="service-name">Deep Tissue (90min)</div><div class="service-price">$750</div></div>
-                            <div class="service-item"><div class="service-name">Aroma Therapy (60min)</div><div class="service-price">$550</div></div>
-                            <div class="service-item"><div class="service-name">Aroma Therapy (90min)</div><div class="service-price">$700</div></div>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20African%20Lungu%20Massage%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24550.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: African Lungu Massage (60 min), N$550.00"><span class="service-name">African Lungu Massage (60 min)</span><span class="service-price">N$550.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20African%20Lungu%20Massage%0ADuration%3A%2090%20minutes%0APrice%3A%20N%24700.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: African Lungu Massage (90 min), N$700.00"><span class="service-name">African Lungu Massage (90 min)</span><span class="service-price">N$700.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Swedish%20Full%20Body%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24550.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Swedish Full Body (60 min), N$550.00"><span class="service-name">Swedish Full Body (60 min)</span><span class="service-price">N$550.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Swedish%20Full%20Body%0ADuration%3A%2090%20minutes%0APrice%3A%20N%24750.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Swedish Full Body (90 min), N$750.00"><span class="service-name">Swedish Full Body (90 min)</span><span class="service-price">N$750.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Swedish%20Full%20Body%0ADuration%3A%20120%20minutes%0APrice%3A%20N%24950.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Swedish Full Body (120 min), N$950.00"><span class="service-name">Swedish Full Body (120 min)</span><span class="service-price">N$950.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Leg%20and%20Feet%0ADuration%3A%2030%20minutes%0APrice%3A%20N%24250.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Leg and Feet (30 min), N$250.00"><span class="service-name">Leg and Feet (30 min)</span><span class="service-price">N$250.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Leg%20and%20Feet%0ADuration%3A%2045%20minutes%0APrice%3A%20N%24350.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Leg and Feet (45 min), N$350.00"><span class="service-name">Leg and Feet (45 min)</span><span class="service-price">N$350.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Full%20Body%20Hotstone%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24500.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Full Body Hotstone (60 min), N$500.00"><span class="service-name">Full Body Hotstone (60 min)</span><span class="service-price">N$500.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Full%20Body%20Hotstone%0ADuration%3A%2090%20minutes%0APrice%3A%20N%24650.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Full Body Hotstone (90 min), N$650.00"><span class="service-name">Full Body Hotstone (90 min)</span><span class="service-price">N$650.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Deep%20Tissue%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24650.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Deep Tissue (60 min), N$650.00"><span class="service-name">Deep Tissue (60 min)</span><span class="service-price">N$650.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Deep%20Tissue%0ADuration%3A%2090%20minutes%0APrice%3A%20N%24800.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Deep Tissue (90 min), N$800.00"><span class="service-name">Deep Tissue (90 min)</span><span class="service-price">N$800.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Deep%20Tissue%0ADuration%3A%20120%20minutes%0APrice%3A%20N%241%2C000.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Deep Tissue (120 min), N$1,000.00"><span class="service-name">Deep Tissue (120 min)</span><span class="service-price">N$1,000.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Aroma%20Therapy%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24550.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Aroma Therapy (60 min), N$550.00"><span class="service-name">Aroma Therapy (60 min)</span><span class="service-price">N$550.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Aroma%20Therapy%0ADuration%3A%2090%20minutes%0APrice%3A%20N%24700.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Aroma Therapy (90 min), N$700.00"><span class="service-name">Aroma Therapy (90 min)</span><span class="service-price">N$700.00</span></a>
                         </div>
                     </div>
 
-                    <!-- Specialty Massages -->
                     <div class="service-category">
                         <div class="category-header">
                             <h3>Specialty Massages</h3>
                         </div>
                         <div class="service-items">
-                            <div class="service-item"><div class="service-name">Back & Neck (45min)</div><div class="service-price">$350</div></div>
-                            <div class="service-item"><div class="service-name">Indian Massage (45min)</div><div class="service-price">$400</div></div>
-                            <div class="service-item"><div class="service-name">Indian Massage (60min)</div><div class="service-price">$480</div></div>
-                            <div class="service-item"><div class="service-name">Pregnant Massage (60min)</div><div class="service-price">$500</div></div>
-                            <div class="service-item"><div class="service-name">Pregnant Massage (90min)</div><div class="service-price">$600</div></div>
-                            <div class="service-item"><div class="service-name">Reflexology (30min)</div><div class="service-price">$300</div></div>
-                            <div class="service-item"><div class="service-name">Sport Massage (60min)</div><div class="service-price">$500</div></div>
-                            <div class="service-item"><div class="service-name">4Hands Massage (60min)</div><div class="service-price">$800</div></div>
-                            <div class="service-item"><div class="service-name">Thai Massage (60min)</div><div class="service-price">$550</div></div>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Back%20and%20Neck%0ADuration%3A%2045%20minutes%0APrice%3A%20N%24350.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Back and Neck (45 min), N$350.00"><span class="service-name">Back and Neck (45 min)</span><span class="service-price">N$350.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Indian%20Massage%0ADuration%3A%2045%20minutes%0APrice%3A%20N%24400.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Indian Massage (45 min), N$400.00"><span class="service-name">Indian Massage (45 min)</span><span class="service-price">N$400.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Indian%20Massage%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24480.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Indian Massage (60 min), N$480.00"><span class="service-name">Indian Massage (60 min)</span><span class="service-price">N$480.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Pregnant%20Massage%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24550.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Pregnant Massage (60 min), N$550.00"><span class="service-name">Pregnant Massage (60 min)</span><span class="service-price">N$550.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Pregnant%20Massage%0ADuration%3A%2090%20minutes%0APrice%3A%20N%24600.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Pregnant Massage (90 min), N$600.00"><span class="service-name">Pregnant Massage (90 min)</span><span class="service-price">N$600.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Reflexology%0ADuration%3A%2030%20minutes%0APrice%3A%20N%24300.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Reflexology (30 min), N$300.00"><span class="service-name">Reflexology (30 min)</span><span class="service-price">N$300.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Sports%20Massage%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24500.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Sports Massage (60 min), N$500.00"><span class="service-name">Sports Massage (60 min)</span><span class="service-price">N$500.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Four%20Hands%20Massage%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24800.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Four Hands Massage (60 min), N$800.00"><span class="service-name">Four Hands Massage (60 min)</span><span class="service-price">N$800.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Thai%20Massage%0ADuration%3A%2060%20minutes%0APrice%3A%20N%24650.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Thai Massage (60 min), N$650.00"><span class="service-name">Thai Massage (60 min)</span><span class="service-price">N$650.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Thai%20Massage%0ADuration%3A%2090%20minutes%0APrice%3A%20N%24800.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Thai Massage (90 min), N$800.00"><span class="service-name">Thai Massage (90 min)</span><span class="service-price">N$800.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Thai%20Massage%0ADuration%3A%20120%20minutes%0APrice%3A%20N%241%2C000.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Thai Massage (120 min), N$1,000.00"><span class="service-name">Thai Massage (120 min)</span><span class="service-price">N$1,000.00</span></a>
                         </div>
                     </div>
 
-                    <!-- Waxing & Beauty -->
                     <div class="service-category">
                         <div class="category-header">
-                            <h3>Waxing & Beauty</h3>
+                            <h3>Waxing &amp; Beauty</h3>
                         </div>
                         <div class="service-items">
-                            <div class="service-item"><div class="service-name">Full Leg Waxing</div><div class="service-price">$400</div></div>
-                            <div class="service-item"><div class="service-name">Underarm Waxing</div><div class="service-price">$100</div></div>
-                            <div class="service-item"><div class="service-name">Hollywood Waxing</div><div class="service-price">$380</div></div>
-                            <div class="service-item"><div class="service-name">Eyebrow Tint</div><div class="service-price">$50</div></div>
-                            <div class="service-item"><div class="service-name">Fullbody Wax</div><div class="service-price">$800</div></div>
-                            <div class="service-item"><div class="service-name">Lips and chin Waxing</div><div class="service-price">$100</div></div>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Full%20Leg%20Wax%0APrice%3A%20N%24400.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Full Leg Wax, N$400.00"><span class="service-name">Full Leg Wax</span><span class="service-price">N$400.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Underarm%20Wax%0APrice%3A%20N%24100.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Underarm Wax, N$100.00"><span class="service-name">Underarm Wax</span><span class="service-price">N$100.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Hollywood%20Wax%0APrice%3A%20N%24380.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Hollywood Wax, N$380.00"><span class="service-name">Hollywood Wax</span><span class="service-price">N$380.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Eyebrow%20Tint%0APrice%3A%20N%2450.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Eyebrow Tint, N$50.00"><span class="service-name">Eyebrow Tint</span><span class="service-price">N$50.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Full%20Body%20Wax%0APrice%3A%20N%24800.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Full Body Wax, N$800.00"><span class="service-name">Full Body Wax</span><span class="service-price">N$800.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%20Lips%20and%20Chin%0APrice%3A%20N%24100.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: Lips and Chin, N$100.00"><span class="service-name">Lips and Chin</span><span class="service-price">N$100.00</span></a>
                         </div>
                     </div>
 
-                    <!-- Couples Packages -->
                     <div class="service-category">
                         <div class="category-header">
                             <h3>Couples Packages</h3>
                         </div>
                         <div class="service-items">
-                            <div class="service-item"><div class="service-name">2x Full Body Massage</div><div class="service-price">$800</div></div>
-                            <div class="service-item"><div class="service-name">2x Body Scrub</div><div class="service-price">$600</div></div>
-                            <div class="service-item"><div class="service-name">2x Back and Neck Massage</div><div class="service-price">$600</div></div>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%202x%20Full%20Body%20Massage%0APrice%3A%20N%24800.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: 2x Full Body Massage, N$800.00"><span class="service-name">2x Full Body Massage</span><span class="service-price">N$800.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%202x%20Body%20Scrub%0APrice%3A%20N%24600.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: 2x Body Scrub, N$600.00"><span class="service-name">2x Body Scrub</span><span class="service-price">N$600.00</span></a>
+                            <a class="service-item" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20book%20the%20following%20service%3A%0AService%3A%202x%20Back%20and%20Neck%20Massage%0APrice%3A%20N%24600.00%0APlease%20confirm%20availability%20and%20help%20me%20arrange%20an%20appointment.%20Thank%20you." target="_blank" rel="noopener noreferrer" aria-label="Enquire on WhatsApp: 2x Back and Neck Massage, N$600.00"><span class="service-name">2x Back and Neck Massage</span><span class="service-price">N$600.00</span></a>
                         </div>
                     </div>
                 </div>
@@ -681,7 +719,7 @@
                     <div class="footer-social">
                         <a href="hendre_skin_SP"><i class="fab fa-facebook-f"></i></a>
                         <a href="hendre_skin_SPA"><i class="fab fa-instagram"></i></a>
-                        <a href="264 812196558"><i class="fab fa-whatsapp"></i></a>
+                        <a class="whatsapp-link" href="https://wa.me/264812196558?text=Hello%20HENDRE%20SPA%2C%20I%20would%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">WhatsApp</a>
                     </div>
                 </div>
                 
